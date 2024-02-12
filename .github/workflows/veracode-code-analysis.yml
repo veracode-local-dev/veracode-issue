@@ -56,20 +56,23 @@ jobs:
       modules_to_scan: ${{ github.event.client_payload.modules_to_scan }}
     secrets: inherit
 
- import-issues:
-  needs: pipeline_scan
-  if: always()
-  runs-on: ubuntu-latest
-  permissions:
-    issues: write
-  steps:
-    - name: get scan results
-      uses: actions/download-artifact@v3
-      with:
-        name: 'Veracode Pipeline-Scan Results'
-
-    - name: import flaws as issues
-      uses: veracode/veracode-flaws-to-issues@addWorkflowAppSupport
-      with:
-        scan-results-json: 'filtered_results.json'
-
+  import-issues:
+    needs: pipeline_scan
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: get scan results
+        uses: actions/download-artifact@v3
+        with:
+          name: 'Veracode Pipeline-Scan Results'
+    
+      - name: import flaws as issues
+        uses: veracode/veracode-flaws-to-issues@addWorkflowAppSupport
+        with:
+          scan-results-json: 'filtered_results.json'
+          repo_owner: 'julian-veracode'
+          repo_name: 'GitHubApp-no-config'
+          github-token: ${{ github.event.client_payload.token }}
+  
