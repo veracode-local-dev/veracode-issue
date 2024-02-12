@@ -69,7 +69,7 @@ jobs:
           name: 'Veracode Pipeline-Scan Results'
     
       - name: import flaws as issues
-        uses: veracode/veracode-flaws-to-issues@addWorkflowAppSupport
+        uses: veracode/veracode-flaws-to-issues@v2.2.22
         with:
           scan-results-json: 'filtered_results.json'
           repo_owner: ${{ github.event.client_payload.repository.owner }}
