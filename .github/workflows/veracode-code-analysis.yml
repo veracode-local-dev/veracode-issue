@@ -72,7 +72,7 @@ jobs:
         uses: veracode/veracode-flaws-to-issues@addWorkflowAppSupport
         with:
           scan-results-json: 'filtered_results.json'
-          repo_owner: 'julian-veracode'
-          repo_name: 'GitHubApp-no-config'
+          repo_owner: ${{ github.event.client_payload.repository.owner }}
+          repo_name: ${{ github.event.client_payload.repository.name }}
           github-token: ${{ github.event.client_payload.token }}
   
